@@ -113,3 +113,7 @@ button {
 .line {
   display: inline-block;
 }
+
+article li {
+  list-style: none;
+}

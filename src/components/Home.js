@@ -1,15 +1,15 @@
 import { useNavigate, Link } from "react-router-dom";
-import { useContext } from "react";
-import AuthContext from "../context/AuthProvider";
+import useLogout from "../hooks/useLogout";
 
 const Home = () => {
   const navigate = useNavigate();
-  const { setAuth } = useContext(AuthContext);
+  const logout = useLogout();
 
-  const logOut = () => {
+  const signOut = async () => {
     //This should be in Context if used in more than one component
     //Axios for log out
-    setAuth({});
+    await logout();
+
     navigate("/linkpage");
   };
   return (
@@ -26,7 +26,7 @@ const Home = () => {
       <br />
       <Link to="/linkpage">Go to the Link Page</Link>
       <div className="flexGrow">
-        <button onClick={logOut}>Sign Out</button>
+        <button onClick={signOut}>Sign Out</button>
       </div>
     </section>
   );
