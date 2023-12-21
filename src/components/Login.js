@@ -1,6 +1,9 @@
 import { useRef, useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import useLocalStorage from "../hooks/useLocalStorage";
+import useInput from "../hooks/useInput";
+import useToggle from "../hooks/useToggle";
 
 import axios from "../api/axios";
 const LOGIN_URL = "/auth";
@@ -14,10 +17,11 @@ const Login = () => {
   const userRef = useRef();
   const errRef = useRef();
 
-  const [user, setUser] = useState("");
+  const [user, resetUser, attributeObj] = useInput("user", ""); //useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+  const [check, toggleCheck] = useToggle("persist", false);
 
   useEffect(() => {
     userRef.current.focus();
@@ -45,7 +49,8 @@ const Login = () => {
       const roles = response?.data?.roles;
       const accessToken = response?.data?.accessToken;
       setAuth({ user, pwd, roles, accessToken });
-      setUser("");
+      //setUser("");
+      resetUser();
       setPwd("");
       navigate(from, { replace: true });
     } catch (err) {
@@ -88,8 +93,9 @@ const Login = () => {
             id="username"
             ref={userRef}
             autoComplete="off"
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
+            //value={user}
+            //onChange={(e) => setUser(e.target.value)}
+            {...attributeObj}
             required
           />
 
