@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import useLocalStorage from "../hooks/useLocalStorage";
 import useInput from "../hooks/useInput";
 import useToggle from "../hooks/useToggle";
 
@@ -9,7 +8,7 @@ import axios from "../api/axios";
 const LOGIN_URL = "/auth";
 
 const Login = () => {
-  const { setAuth, persist, setPersist } = useAuth();
+  const { setAuth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
@@ -67,13 +66,13 @@ const Login = () => {
     }
   };
 
-  const togglePersist = () => {
+  /*  const togglePersist = () => {
     setPersist((prev) => !prev);
   };
 
   useEffect(() => {
     localStorage.setItem("persist", persist);
-  }, [persist]);
+  }, [persist]); */
 
   return (
     <>
@@ -113,8 +112,8 @@ const Login = () => {
             <input
               type="checkbox"
               id="persist"
-              onChange={togglePersist}
-              checked={persist}
+              onChange={toggleCheck}
+              checked={check}
             />
           </div>
           <p>
