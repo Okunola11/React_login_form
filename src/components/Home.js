@@ -1,15 +1,22 @@
 import { useNavigate, Link } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
+import useLogoutAll from "../hooks/useLogoutAll";
 
 const Home = () => {
   const navigate = useNavigate();
   const logout = useLogout();
+  const logoutAll = useLogoutAll();
 
   const signOut = async () => {
     //This should be in Context if used in more than one component
     //Axios for log out
     await logout();
 
+    navigate("/linkpage");
+  };
+
+  const signOutAll = async () => {
+    await logoutAll();
     navigate("/linkpage");
   };
   return (
@@ -27,6 +34,7 @@ const Home = () => {
       <Link to="/linkpage">Go to the Link Page</Link>
       <div className="flexGrow">
         <button onClick={signOut}>Sign Out</button>
+        <button onClick={signOutAll}>Sign Out All</button>
       </div>
     </section>
   );
